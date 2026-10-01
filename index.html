@@ -1,188 +1,756 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Study Buddy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body{
-    font-family:Arial,sans-serif;
-    margin:0;
-    background:#f3f4f6;
-    color:#222;
-}
+    <title>Study Buddy</title>
 
-header{
-    background:#2563eb;
-    color:white;
-    padding:20px;
-}
-
-nav{
-    background:white;
-    padding:15px;
-    display:flex;
-    gap:10px;
-}
-
-button{
-    padding:12px 18px;
-    border:0;
-    border-radius:8px;
-    background:#2563eb;
-    color:white;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#1d4ed8;
-}
-
-main{
-    padding:25px;
-}
-
-.box{
-    background:white;
-    padding:20px;
-    border-radius:12px;
-    margin-top:20px;
-}
-
-input{
-    padding:10px;
-    margin:5px;
-}
-
-.item{
-    padding:10px;
-    margin-top:10px;
-    background:#eef2ff;
-    border-radius:8px;
-}
-</style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header>
-<h1>Study Buddy</h1>
-<p>ระบบช่วยจัดการห้องเรียน</p>
-</header>
+<div class="app">
 
-<nav>
-<button onclick="showPage('schedule')">📚 ตารางเรียน</button>
-<button onclick="showPage('assignment')">📝 งานที่ต้องส่ง</button>
-<button onclick="showPage('exam')">📄 ตารางสอบ</button>
-</nav>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-<main>
+        <div class="brand">
+            <div class="brand-logo">SB</div>
 
-<div id="content" class="box">
+            <div>
+                <h2>Study Buddy</h2>
+                <span>ระบบช่วยจัดการห้องเรียน</span>
+            </div>
+        </div>
 
-<h2>ยินดีต้อนรับ 👋</h2>
-<p>เลือกเมนูด้านบนเพื่อเริ่มใช้งาน</p>
+        <nav class="menu-list">
+
+            <button class="menu active"
+                    onclick="showPage('dashboard', this)">
+                <span>🏠</span>
+                <span>หน้าหลัก</span>
+            </button>
+
+            <button class="menu"
+                    onclick="showPage('schedule', this)">
+                <span>🗓️</span>
+                <span>ตารางเรียน</span>
+            </button>
+
+            <button class="menu"
+                    onclick="showPage('assignment', this)">
+                <span>📝</span>
+                <span>งานที่ต้องส่ง</span>
+            </button>
+
+            <button class="menu"
+                    onclick="showPage('exam', this)">
+                <span>📄</span>
+                <span>ตารางสอบ</span>
+            </button>
+
+            <button class="menu"
+                    onclick="showPage('appointment', this)">
+                <span>📌</span>
+                <span>นัดหมาย</span>
+            </button>
+
+            <button class="menu"
+                    onclick="showPage('announcement', this)">
+                <span>📢</span>
+                <span>ประกาศ</span>
+            </button>
+
+        </nav>
+
+        <div class="user-card">
+
+            <div class="user-avatar">
+                👨🏻‍🎓
+            </div>
+
+            <div>
+                <strong>นักศึกษา</strong>
+                <span>สมาชิกห้อง</span>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOP -->
+        <header class="topbar">
+
+            <div>
+                <h1 id="pageTitle">หน้าหลัก</h1>
+
+                <p>
+                    ยินดีต้อนรับเข้าสู่ Study Buddy 👋
+                </p>
+            </div>
+
+            <div class="room-badge">
+                <span>ห้องเรียน</span>
+                <strong>CEAI-2/1</strong>
+            </div>
+
+        </header>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section id="dashboard" class="page active">
+
+            <div class="welcome-card">
+
+                <div>
+                    <span class="welcome-label">
+                        วันนี้
+                    </span>
+
+                    <h2 id="today">
+                        กำลังโหลด...
+                    </h2>
+
+                    <p>
+                        ตรวจสอบตารางเรียน งาน และกิจกรรมของห้องได้ที่นี่
+                    </p>
+                </div>
+
+                <div class="welcome-icon">
+                    📚
+                </div>
+
+            </div>
+
+
+            <!-- STAT -->
+
+            <div class="stats">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        🗓️
+                    </div>
+
+                    <div>
+                        <span>เรียนวันนี้</span>
+                        <strong>3</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+                        📝
+                    </div>
+
+                    <div>
+                        <span>งานที่ต้องส่ง</span>
+                        <strong id="assignmentCount">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon red">
+                        📄
+                    </div>
+
+                    <div>
+                        <span>สอบใกล้ถึง</span>
+                        <strong id="examCount">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        📢
+                    </div>
+
+                    <div>
+                        <span>ประกาศ</span>
+                        <strong id="announcementCount">0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TWO COLUMNS -->
+
+            <div class="dashboard-grid">
+
+                <!-- ASSIGNMENTS -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>📝 งานใกล้ถึงกำหนด</h3>
+                            <p>รายการงานของห้อง</p>
+                        </div>
+
+                        <button
+                            class="text-button"
+                            onclick="showPage('assignment')">
+                            ดูทั้งหมด →
+                        </button>
+
+                    </div>
+
+                    <div id="dashboardAssignments"
+                         class="dashboard-list">
+                    </div>
+
+                </div>
+
+
+                <!-- ANNOUNCEMENT -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>📢 ประกาศล่าสุด</h3>
+                            <p>ข่าวสารจากห้องเรียน</p>
+                        </div>
+
+                        <button
+                            class="text-button"
+                            onclick="showPage('announcement')">
+                            ดูทั้งหมด →
+                        </button>
+
+                    </div>
+
+                    <div id="dashboardAnnouncements"
+                         class="dashboard-list">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= SCHEDULE ================= -->
+
+        <section id="schedule" class="page">
+
+            <div class="section-head">
+
+                <div>
+                    <h2>🗓️ ตารางเรียน</h2>
+                    <p>ตารางเรียนของห้อง CEAI-2/1</p>
+                </div>
+
+                <button
+                    class="primary-button"
+                    onclick="openModal('scheduleModal')">
+                    + เพิ่มตารางเรียน
+                </button>
+
+            </div>
+
+
+            <div class="card table-card">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>วัน</th>
+                                <th>เวลา</th>
+                                <th>วิชา</th>
+                                <th>ห้อง</th>
+                                <th>ผู้สอน</th>
+                                <th>จัดการ</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="scheduleTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ASSIGNMENT ================= -->
+
+        <section id="assignment" class="page">
+
+            <div class="section-head">
+
+                <div>
+                    <h2>📝 งานที่ต้องส่ง</h2>
+                    <p>ติดตามงานและกำหนดส่งของห้องเรียน</p>
+                </div>
+
+                <button
+                    class="primary-button"
+                    onclick="openModal('assignmentModal')">
+                    + เพิ่มงาน
+                </button>
+
+            </div>
+
+
+            <div id="assignmentList"
+                 class="content-list">
+            </div>
+
+        </section>
+
+
+        <!-- ================= EXAM ================= -->
+
+        <section id="exam" class="page">
+
+            <div class="section-head">
+
+                <div>
+                    <h2>📄 ตารางสอบ</h2>
+                    <p>กำหนดการสอบของห้องเรียน</p>
+                </div>
+
+                <button
+                    class="primary-button"
+                    onclick="openModal('examModal')">
+                    + เพิ่มตารางสอบ
+                </button>
+
+            </div>
+
+
+            <div class="card table-card">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+                                <th>วิชา</th>
+                                <th>วันที่</th>
+                                <th>เวลา</th>
+                                <th>ห้องสอบ</th>
+                                <th>จัดการ</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="examTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= APPOINTMENT ================= -->
+
+        <section id="appointment" class="page">
+
+            <div class="section-head">
+
+                <div>
+                    <h2>📌 นัดหมาย</h2>
+                    <p>นัดหมายสำคัญของห้องเรียน</p>
+                </div>
+
+                <button
+                    class="primary-button"
+                    onclick="openModal('appointmentModal')">
+                    + เพิ่มนัดหมาย
+                </button>
+
+            </div>
+
+
+            <div id="appointmentList"
+                 class="appointment-list">
+            </div>
+
+        </section>
+
+
+        <!-- ================= ANNOUNCEMENT ================= -->
+
+        <section id="announcement" class="page">
+
+            <div class="section-head">
+
+                <div>
+                    <h2>📢 ประกาศ</h2>
+                    <p>ประกาศและข่าวสารของห้องเรียน</p>
+                </div>
+
+                <button
+                    class="primary-button"
+                    onclick="openModal('announcementModal')">
+                    + เพิ่มประกาศ
+                </button>
+
+            </div>
+
+
+            <div id="announcementList"
+                 class="content-list">
+            </div>
+
+        </section>
+
+    </main>
 
 </div>
 
-</main>
 
-<script>
+<!-- ================================================= -->
+<!-- SCHEDULE MODAL -->
+<!-- ================================================= -->
 
-function showPage(page){
+<div id="scheduleModal" class="modal">
 
-let content=document.getElementById("content");
+    <div class="modal-box">
 
-if(page==="schedule"){
+        <div class="modal-title">
 
-content.innerHTML=`
-<h2>📚 ตารางเรียน</h2>
+            <h2>เพิ่มตารางเรียน</h2>
 
-<input id="subject" placeholder="ชื่อวิชา">
-<input id="time" placeholder="เวลา">
+            <button onclick="closeModal('scheduleModal')">
+                ×
+            </button>
 
-<button onclick="addSchedule()">เพิ่ม</button>
-
-<div id="list"></div>
-`;
-
-}
-
-else if(page==="assignment"){
-
-content.innerHTML=`
-<h2>📝 งานที่ต้องส่ง</h2>
-
-<input id="work" placeholder="ชื่องาน">
-
-<button onclick="addWork()">เพิ่ม</button>
-
-<div id="list"></div>
-`;
-
-}
-
-else if(page==="exam"){
-
-content.innerHTML=`
-<h2>📄 ตารางสอบ</h2>
-
-<input id="exam" placeholder="ชื่อวิชา">
-
-<button onclick="addExam()">เพิ่ม</button>
-
-<div id="list"></div>
-`;
-
-}
-
-}
+        </div>
 
 
-function addSchedule(){
+        <label>วัน</label>
 
-let subject=document.getElementById("subject").value;
-let time=document.getElementById("time").value;
+        <select id="scheduleDay">
 
-if(subject==="") return;
+            <option value="จันทร์">จันทร์</option>
+            <option value="อังคาร">อังคาร</option>
+            <option value="พุธ">พุธ</option>
+            <option value="พฤหัสบดี">พฤหัสบดี</option>
+            <option value="ศุกร์">ศุกร์</option>
+            <option value="เสาร์">เสาร์</option>
+            <option value="อาทิตย์">อาทิตย์</option>
 
-document.getElementById("list").innerHTML+=
-`<div class="item">
-📚 ${subject} | ${time}
-</div>`;
-
-}
-
-
-function addWork(){
-
-let work=document.getElementById("work").value;
-
-if(work==="") return;
-
-document.getElementById("list").innerHTML+=
-`<div class="item">
-📝 ${work}
-</div>`;
-
-}
+        </select>
 
 
-function addExam(){
+        <label>เวลา</label>
 
-let exam=document.getElementById("exam").value;
+        <input
+            id="scheduleTime"
+            type="text"
+            placeholder="09:00 - 12:00"
+        >
 
-if(exam==="") return;
 
-document.getElementById("list").innerHTML+=
-`<div class="item">
-📄 ${exam}
-</div>`;
+        <label>วิชา</label>
 
-}
+        <input
+            id="scheduleSubject"
+            type="text"
+            placeholder="ชื่อวิชา"
+        >
 
-</script>
+
+        <label>ห้อง</label>
+
+        <input
+            id="scheduleRoom"
+            type="text"
+            placeholder="เช่น CE-301"
+        >
+
+
+        <label>ผู้สอน</label>
+
+        <input
+            id="scheduleTeacher"
+            type="text"
+            placeholder="ชื่อผู้สอน"
+        >
+
+
+        <button
+            class="primary-button full"
+            onclick="addSchedule()">
+            เพิ่มตารางเรียน
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- ASSIGNMENT MODAL -->
+<!-- ================================================= -->
+
+<div id="assignmentModal" class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-title">
+
+            <h2>เพิ่มงาน</h2>
+
+            <button onclick="closeModal('assignmentModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <label>ชื่องาน</label>
+
+        <input
+            id="assignmentName"
+            type="text"
+            placeholder="เช่น แบบฝึกหัดวิศวกรรมซอฟต์แวร์"
+        >
+
+
+        <label>รายละเอียด</label>
+
+        <textarea
+            id="assignmentDetail"
+            placeholder="รายละเอียดงาน">
+        </textarea>
+
+
+        <label>กำหนดส่ง</label>
+
+        <input
+            id="assignmentDate"
+            type="datetime-local"
+        >
+
+
+        <button
+            class="primary-button full"
+            onclick="addAssignment()">
+            เพิ่มงาน
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- EXAM MODAL -->
+<!-- ================================================= -->
+
+<div id="examModal" class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-title">
+
+            <h2>เพิ่มตารางสอบ</h2>
+
+            <button onclick="closeModal('examModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <label>วิชา</label>
+
+        <input
+            id="examSubject"
+            type="text"
+            placeholder="ชื่อวิชา"
+        >
+
+
+        <label>วันที่สอบ</label>
+
+        <input
+            id="examDate"
+            type="date"
+        >
+
+
+        <label>เวลา</label>
+
+        <input
+            id="examTime"
+            type="text"
+            placeholder="09:00 - 12:00"
+        >
+
+
+        <label>ห้องสอบ</label>
+
+        <input
+            id="examRoom"
+            type="text"
+            placeholder="เช่น CE-301"
+        >
+
+
+        <button
+            class="primary-button full"
+            onclick="addExam()">
+            เพิ่มตารางสอบ
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- APPOINTMENT MODAL -->
+<!-- ================================================= -->
+
+<div id="appointmentModal" class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-title">
+
+            <h2>เพิ่มนัดหมาย</h2>
+
+            <button onclick="closeModal('appointmentModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <label>ชื่อนัดหมาย</label>
+
+        <input
+            id="appointmentName"
+            type="text"
+            placeholder="เช่น ประชุมงานกลุ่ม"
+        >
+
+
+        <label>วันที่</label>
+
+        <input
+            id="appointmentDate"
+            type="date"
+        >
+
+
+        <label>เวลา</label>
+
+        <input
+            id="appointmentTime"
+            type="text"
+            placeholder="13:00"
+        >
+
+
+        <label>สถานที่</label>
+
+        <input
+            id="appointmentRoom"
+            type="text"
+            placeholder="เช่น CE-301"
+        >
+
+
+        <button
+            class="primary-button full"
+            onclick="addAppointment()">
+            เพิ่มนัดหมาย
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- ANNOUNCEMENT MODAL -->
+<!-- ================================================= -->
+
+<div id="announcementModal" class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-title">
+
+            <h2>เพิ่มประกาศ</h2>
+
+            <button onclick="closeModal('announcementModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <label>หัวข้อประกาศ</label>
+
+        <input
+            id="announcementTitle"
+            type="text"
+            placeholder="หัวข้อประกาศ"
+        >
+
+
+        <label>รายละเอียด</label>
+
+        <textarea
+            id="announcementDetailInput"
+            placeholder="รายละเอียดประกาศ">
+        </textarea>
+
+
+        <button
+            class="primary-button full"
+            onclick="addAnnouncement()">
+            เพิ่มประกาศ
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- JS -->
+<script src="script.js"></script>
 
 </body>
 </html>
