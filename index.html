@@ -1,393 +1,185 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Buddy</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Buddy</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+<style>
+body{
+    font-family:Arial,sans-serif;
+    margin:0;
+    background:#f3f4f6;
+    color:#222;
+}
 
-        body {
-            margin: 0;
-            background: #f4f6f8;
-            color: #222;
-        }
+header{
+    background:#2563eb;
+    color:white;
+    padding:20px;
+}
 
-        header {
-            background: #2563eb;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-        }
+nav{
+    background:white;
+    padding:15px;
+    display:flex;
+    gap:10px;
+}
 
-        header h1 {
-            margin: 0 0 8px;
-        }
+button{
+    padding:12px 18px;
+    border:0;
+    border-radius:8px;
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+}
 
-        header p {
-            margin: 0;
-        }
+button:hover{
+    background:#1d4ed8;
+}
 
-        .container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
+main{
+    padding:25px;
+}
 
-        .menu {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 25px;
-        }
+.box{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    margin-top:20px;
+}
 
-        .menu button {
-            border: none;
-            background: white;
-            padding: 25px 10px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 18px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+input{
+    padding:10px;
+    margin:5px;
+}
 
-        .menu button:hover {
-            background: #e8f0ff;
-        }
-
-        .content {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        input {
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
-
-        .add-btn {
-            padding: 10px 18px;
-            border: none;
-            background: #2563eb;
-            color: white;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .add-btn:hover {
-            background: #1d4ed8;
-        }
-
-        .item {
-            background: #f1f5f9;
-            margin-top: 10px;
-            padding: 12px;
-            border-radius: 8px;
-        }
-
-        .delete-btn {
-            float: right;
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        @media (max-width: 600px) {
-            .menu {
-                grid-template-columns: 1fr;
-            }
-
-            input {
-                width: 100%;
-                margin: 5px 0;
-            }
-
-            .add-btn {
-                width: 100%;
-                margin-top: 5px;
-            }
-        }
-    </style>
+.item{
+    padding:10px;
+    margin-top:10px;
+    background:#eef2ff;
+    border-radius:8px;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <h1>📚 Study Buddy</h1>
-    <p>ระบบช่วยจัดการตารางเรียน งาน และตารางสอบ</p>
+<h1>Study Buddy</h1>
+<p>ระบบช่วยจัดการห้องเรียน</p>
 </header>
 
-<div class="container">
+<nav>
+<button onclick="showPage('schedule')">📚 ตารางเรียน</button>
+<button onclick="showPage('assignment')">📝 งานที่ต้องส่ง</button>
+<button onclick="showPage('exam')">📄 ตารางสอบ</button>
+</nav>
 
-    <div class="menu">
-        <button onclick="showSchedule()">📚<br>ตารางเรียน</button>
-        <button onclick="showAssignment()">📝<br>งานที่ต้องส่ง</button>
-        <button onclick="showExam()">📄<br>ตารางสอบ</button>
-    </div>
+<main>
 
-    <div class="content" id="content">
-        <h2>ยินดีต้อนรับสู่ Study Buddy</h2>
-        <p>เลือกเมนูด้านบนเพื่อเริ่มใช้งาน</p>
-    </div>
+<div id="content" class="box">
+
+<h2>ยินดีต้อนรับ 👋</h2>
+<p>เลือกเมนูด้านบนเพื่อเริ่มใช้งาน</p>
 
 </div>
 
+</main>
+
 <script>
 
-let schedules = [];
-let assignments = [];
-let exams = [];
+function showPage(page){
 
-function showSchedule() {
+let content=document.getElementById("content");
 
-    document.getElementById("content").innerHTML = `
-        <h2>📚 ตารางเรียน</h2>
+if(page==="schedule"){
 
-        <input type="text" id="subject"
-               placeholder="ชื่อวิชา">
+content.innerHTML=`
+<h2>📚 ตารางเรียน</h2>
 
-        <input type="text" id="classTime"
-               placeholder="เวลาเรียน">
+<input id="subject" placeholder="ชื่อวิชา">
+<input id="time" placeholder="เวลา">
 
-        <button class="add-btn" onclick="addSchedule()">
-            เพิ่ม
-        </button>
+<button onclick="addSchedule()">เพิ่ม</button>
 
-        <div id="scheduleList"></div>
-    `;
+<div id="list"></div>
+`;
 
-    displaySchedules();
+}
+
+else if(page==="assignment"){
+
+content.innerHTML=`
+<h2>📝 งานที่ต้องส่ง</h2>
+
+<input id="work" placeholder="ชื่องาน">
+
+<button onclick="addWork()">เพิ่ม</button>
+
+<div id="list"></div>
+`;
+
+}
+
+else if(page==="exam"){
+
+content.innerHTML=`
+<h2>📄 ตารางสอบ</h2>
+
+<input id="exam" placeholder="ชื่อวิชา">
+
+<button onclick="addExam()">เพิ่ม</button>
+
+<div id="list"></div>
+`;
+
+}
+
 }
 
 
-function addSchedule() {
+function addSchedule(){
 
-    let subject = document.getElementById("subject").value;
-    let time = document.getElementById("classTime").value;
+let subject=document.getElementById("subject").value;
+let time=document.getElementById("time").value;
 
-    if (subject === "" || time === "") {
-        alert("กรุณากรอกข้อมูลให้ครบ");
-        return;
-    }
+if(subject==="") return;
 
-    schedules.push({
-        subject: subject,
-        time: time
-    });
+document.getElementById("list").innerHTML+=
+`<div class="item">
+📚 ${subject} | ${time}
+</div>`;
 
-    document.getElementById("subject").value = "";
-    document.getElementById("classTime").value = "";
-
-    displaySchedules();
 }
 
 
-function displaySchedules() {
+function addWork(){
 
-    let list = document.getElementById("scheduleList");
+let work=document.getElementById("work").value;
 
-    if (!list) return;
+if(work==="") return;
 
-    list.innerHTML = "";
+document.getElementById("list").innerHTML+=
+`<div class="item">
+📝 ${work}
+</div>`;
 
-    schedules.forEach((item, index) => {
-
-        list.innerHTML += `
-            <div class="item">
-                📚 <b>${item.subject}</b>
-                <br>
-                เวลา: ${item.time}
-
-                <button class="delete-btn"
-                    onclick="deleteSchedule(${index})">
-                    ลบ
-                </button>
-            </div>
-        `;
-    });
 }
 
 
-function deleteSchedule(index) {
+function addExam(){
 
-    schedules.splice(index, 1);
+let exam=document.getElementById("exam").value;
 
-    displaySchedules();
-}
+if(exam==="") return;
 
+document.getElementById("list").innerHTML+=
+`<div class="item">
+📄 ${exam}
+</div>`;
 
-function showAssignment() {
-
-    document.getElementById("content").innerHTML = `
-        <h2>📝 งานที่ต้องส่ง</h2>
-
-        <input type="text" id="work"
-               placeholder="ชื่องาน">
-
-        <input type="text" id="workDate"
-               placeholder="วันกำหนดส่ง">
-
-        <button class="add-btn" onclick="addAssignment()">
-            เพิ่ม
-        </button>
-
-        <div id="assignmentList"></div>
-    `;
-
-    displayAssignments();
-}
-
-
-function addAssignment() {
-
-    let work = document.getElementById("work").value;
-    let date = document.getElementById("workDate").value;
-
-    if (work === "" || date === "") {
-        alert("กรุณากรอกข้อมูลให้ครบ");
-        return;
-    }
-
-    assignments.push({
-        work: work,
-        date: date
-    });
-
-    document.getElementById("work").value = "";
-    document.getElementById("workDate").value = "";
-
-    displayAssignments();
-}
-
-
-function displayAssignments() {
-
-    let list = document.getElementById("assignmentList");
-
-    if (!list) return;
-
-    list.innerHTML = "";
-
-    assignments.forEach((item, index) => {
-
-        list.innerHTML += `
-            <div class="item">
-                📝 <b>${item.work}</b>
-                <br>
-                กำหนดส่ง: ${item.date}
-
-                <button class="delete-btn"
-                    onclick="deleteAssignment(${index})">
-                    ลบ
-                </button>
-            </div>
-        `;
-    });
-}
-
-
-function deleteAssignment(index) {
-
-    assignments.splice(index, 1);
-
-    displayAssignments();
-}
-
-
-function showExam() {
-
-    document.getElementById("content").innerHTML = `
-        <h2>📄 ตารางสอบ</h2>
-
-        <input type="text" id="examSubject"
-               placeholder="ชื่อวิชา">
-
-        <input type="text" id="examDate"
-               placeholder="วันสอบ">
-
-        <input type="text" id="examTime"
-               placeholder="เวลาสอบ">
-
-        <button class="add-btn" onclick="addExam()">
-            เพิ่ม
-        </button>
-
-        <div id="examList"></div>
-    `;
-
-    displayExams();
-}
-
-
-function addExam() {
-
-    let subject = document.getElementById("examSubject").value;
-    let date = document.getElementById("examDate").value;
-    let time = document.getElementById("examTime").value;
-
-    if (subject === "" || date === "" || time === "") {
-        alert("กรุณากรอกข้อมูลให้ครบ");
-        return;
-    }
-
-    exams.push({
-        subject: subject,
-        date: date,
-        time: time
-    });
-
-    document.getElementById("examSubject").value = "";
-    document.getElementById("examDate").value = "";
-    document.getElementById("examTime").value = "";
-
-    displayExams();
-}
-
-
-function displayExams() {
-
-    let list = document.getElementById("examList");
-
-    if (!list) return;
-
-    list.innerHTML = "";
-
-    exams.forEach((item, index) => {
-
-        list.innerHTML += `
-            <div class="item">
-                📄 <b>${item.subject}</b>
-                <br>
-                วันที่สอบ: ${item.date}
-                <br>
-                เวลา: ${item.time}
-
-                <button class="delete-btn"
-                    onclick="deleteExam(${index})">
-                    ลบ
-                </button>
-            </div>
-        `;
-    });
-}
-
-
-function deleteExam(index) {
-
-    exams.splice(index, 1);
-
-    displayExams();
 }
 
 </script>
