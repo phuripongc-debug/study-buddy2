@@ -1,756 +1,747 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Study Buddy</title>
-
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-<div class="app">
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-
-        <div class="brand">
-            <div class="brand-logo">SB</div>
-
-            <div>
-                <h2>Study Buddy</h2>
-                <span>ระบบช่วยจัดการห้องเรียน</span>
-            </div>
-        </div>
-
-        <nav class="menu-list">
-
-            <button class="menu active"
-                    onclick="showPage('dashboard', this)">
-                <span>🏠</span>
-                <span>หน้าหลัก</span>
-            </button>
-
-            <button class="menu"
-                    onclick="showPage('schedule', this)">
-                <span>🗓️</span>
-                <span>ตารางเรียน</span>
-            </button>
-
-            <button class="menu"
-                    onclick="showPage('assignment', this)">
-                <span>📝</span>
-                <span>งานที่ต้องส่ง</span>
-            </button>
-
-            <button class="menu"
-                    onclick="showPage('exam', this)">
-                <span>📄</span>
-                <span>ตารางสอบ</span>
-            </button>
-
-            <button class="menu"
-                    onclick="showPage('appointment', this)">
-                <span>📌</span>
-                <span>นัดหมาย</span>
-            </button>
-
-            <button class="menu"
-                    onclick="showPage('announcement', this)">
-                <span>📢</span>
-                <span>ประกาศ</span>
-            </button>
-
-        </nav>
-
-        <div class="user-card">
-
-            <div class="user-avatar">
-                👨🏻‍🎓
-            </div>
-
-            <div>
-                <strong>นักศึกษา</strong>
-                <span>สมาชิกห้อง</span>
-            </div>
-
-        </div>
-
-    </aside>
-
-
-    <!-- MAIN -->
-    <main class="main">
-
-        <!-- TOP -->
-        <header class="topbar">
-
-            <div>
-                <h1 id="pageTitle">หน้าหลัก</h1>
-
-                <p>
-                    ยินดีต้อนรับเข้าสู่ Study Buddy 👋
-                </p>
-            </div>
-
-            <div class="room-badge">
-                <span>ห้องเรียน</span>
-                <strong>CEAI-2/1</strong>
-            </div>
-
-        </header>
-
-
-        <!-- ================= DASHBOARD ================= -->
-
-        <section id="dashboard" class="page active">
-
-            <div class="welcome-card">
-
-                <div>
-                    <span class="welcome-label">
-                        วันนี้
-                    </span>
-
-                    <h2 id="today">
-                        กำลังโหลด...
-                    </h2>
-
-                    <p>
-                        ตรวจสอบตารางเรียน งาน และกิจกรรมของห้องได้ที่นี่
-                    </p>
-                </div>
-
-                <div class="welcome-icon">
-                    📚
-                </div>
-
-            </div>
-
-
-            <!-- STAT -->
-
-            <div class="stats">
-
-                <div class="stat-card">
-
-                    <div class="stat-icon blue">
-                        🗓️
-                    </div>
-
-                    <div>
-                        <span>เรียนวันนี้</span>
-                        <strong>3</strong>
-                    </div>
-
-                </div>
-
-
-                <div class="stat-card">
-
-                    <div class="stat-icon orange">
-                        📝
-                    </div>
-
-                    <div>
-                        <span>งานที่ต้องส่ง</span>
-                        <strong id="assignmentCount">0</strong>
-                    </div>
-
-                </div>
-
-
-                <div class="stat-card">
-
-                    <div class="stat-icon red">
-                        📄
-                    </div>
-
-                    <div>
-                        <span>สอบใกล้ถึง</span>
-                        <strong id="examCount">0</strong>
-                    </div>
-
-                </div>
-
-
-                <div class="stat-card">
-
-                    <div class="stat-icon green">
-                        📢
-                    </div>
-
-                    <div>
-                        <span>ประกาศ</span>
-                        <strong id="announcementCount">0</strong>
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- TWO COLUMNS -->
-
-            <div class="dashboard-grid">
-
-                <!-- ASSIGNMENTS -->
-
-                <div class="card">
-
-                    <div class="card-header">
-
-                        <div>
-                            <h3>📝 งานใกล้ถึงกำหนด</h3>
-                            <p>รายการงานของห้อง</p>
-                        </div>
-
-                        <button
-                            class="text-button"
-                            onclick="showPage('assignment')">
-                            ดูทั้งหมด →
-                        </button>
-
-                    </div>
-
-                    <div id="dashboardAssignments"
-                         class="dashboard-list">
-                    </div>
-
-                </div>
-
-
-                <!-- ANNOUNCEMENT -->
-
-                <div class="card">
-
-                    <div class="card-header">
-
-                        <div>
-                            <h3>📢 ประกาศล่าสุด</h3>
-                            <p>ข่าวสารจากห้องเรียน</p>
-                        </div>
-
-                        <button
-                            class="text-button"
-                            onclick="showPage('announcement')">
-                            ดูทั้งหมด →
-                        </button>
-
-                    </div>
-
-                    <div id="dashboardAnnouncements"
-                         class="dashboard-list">
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= SCHEDULE ================= -->
-
-        <section id="schedule" class="page">
-
-            <div class="section-head">
-
-                <div>
-                    <h2>🗓️ ตารางเรียน</h2>
-                    <p>ตารางเรียนของห้อง CEAI-2/1</p>
-                </div>
-
-                <button
-                    class="primary-button"
-                    onclick="openModal('scheduleModal')">
-                    + เพิ่มตารางเรียน
-                </button>
-
-            </div>
-
-
-            <div class="card table-card">
-
-                <div class="table-wrapper">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-                                <th>วัน</th>
-                                <th>เวลา</th>
-                                <th>วิชา</th>
-                                <th>ห้อง</th>
-                                <th>ผู้สอน</th>
-                                <th>จัดการ</th>
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="scheduleTable"></tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= ASSIGNMENT ================= -->
-
-        <section id="assignment" class="page">
-
-            <div class="section-head">
-
-                <div>
-                    <h2>📝 งานที่ต้องส่ง</h2>
-                    <p>ติดตามงานและกำหนดส่งของห้องเรียน</p>
-                </div>
-
-                <button
-                    class="primary-button"
-                    onclick="openModal('assignmentModal')">
-                    + เพิ่มงาน
-                </button>
-
-            </div>
-
-
-            <div id="assignmentList"
-                 class="content-list">
-            </div>
-
-        </section>
-
-
-        <!-- ================= EXAM ================= -->
-
-        <section id="exam" class="page">
-
-            <div class="section-head">
-
-                <div>
-                    <h2>📄 ตารางสอบ</h2>
-                    <p>กำหนดการสอบของห้องเรียน</p>
-                </div>
-
-                <button
-                    class="primary-button"
-                    onclick="openModal('examModal')">
-                    + เพิ่มตารางสอบ
-                </button>
-
-            </div>
-
-
-            <div class="card table-card">
-
-                <div class="table-wrapper">
-
-                    <table>
-
-                        <thead>
-
-                            <tr>
-                                <th>วิชา</th>
-                                <th>วันที่</th>
-                                <th>เวลา</th>
-                                <th>ห้องสอบ</th>
-                                <th>จัดการ</th>
-                            </tr>
-
-                        </thead>
-
-                        <tbody id="examTable"></tbody>
-
-                    </table>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= APPOINTMENT ================= -->
-
-        <section id="appointment" class="page">
-
-            <div class="section-head">
-
-                <div>
-                    <h2>📌 นัดหมาย</h2>
-                    <p>นัดหมายสำคัญของห้องเรียน</p>
-                </div>
-
-                <button
-                    class="primary-button"
-                    onclick="openModal('appointmentModal')">
-                    + เพิ่มนัดหมาย
-                </button>
-
-            </div>
-
-
-            <div id="appointmentList"
-                 class="appointment-list">
-            </div>
-
-        </section>
-
-
-        <!-- ================= ANNOUNCEMENT ================= -->
-
-        <section id="announcement" class="page">
-
-            <div class="section-head">
-
-                <div>
-                    <h2>📢 ประกาศ</h2>
-                    <p>ประกาศและข่าวสารของห้องเรียน</p>
-                </div>
-
-                <button
-                    class="primary-button"
-                    onclick="openModal('announcementModal')">
-                    + เพิ่มประกาศ
-                </button>
-
-            </div>
-
-
-            <div id="announcementList"
-                 class="content-list">
-            </div>
-
-        </section>
-
-    </main>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- SCHEDULE MODAL -->
-<!-- ================================================= -->
-
-<div id="scheduleModal" class="modal">
-
-    <div class="modal-box">
-
-        <div class="modal-title">
-
-            <h2>เพิ่มตารางเรียน</h2>
-
-            <button onclick="closeModal('scheduleModal')">
-                ×
-            </button>
-
-        </div>
-
-
-        <label>วัน</label>
-
-        <select id="scheduleDay">
-
-            <option value="จันทร์">จันทร์</option>
-            <option value="อังคาร">อังคาร</option>
-            <option value="พุธ">พุธ</option>
-            <option value="พฤหัสบดี">พฤหัสบดี</option>
-            <option value="ศุกร์">ศุกร์</option>
-            <option value="เสาร์">เสาร์</option>
-            <option value="อาทิตย์">อาทิตย์</option>
-
-        </select>
-
-
-        <label>เวลา</label>
-
-        <input
-            id="scheduleTime"
-            type="text"
-            placeholder="09:00 - 12:00"
-        >
-
-
-        <label>วิชา</label>
-
-        <input
-            id="scheduleSubject"
-            type="text"
-            placeholder="ชื่อวิชา"
-        >
-
-
-        <label>ห้อง</label>
-
-        <input
-            id="scheduleRoom"
-            type="text"
-            placeholder="เช่น CE-301"
-        >
-
-
-        <label>ผู้สอน</label>
-
-        <input
-            id="scheduleTeacher"
-            type="text"
-            placeholder="ชื่อผู้สอน"
-        >
-
-
-        <button
-            class="primary-button full"
-            onclick="addSchedule()">
-            เพิ่มตารางเรียน
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- ASSIGNMENT MODAL -->
-<!-- ================================================= -->
-
-<div id="assignmentModal" class="modal">
-
-    <div class="modal-box">
-
-        <div class="modal-title">
-
-            <h2>เพิ่มงาน</h2>
-
-            <button onclick="closeModal('assignmentModal')">
-                ×
-            </button>
-
-        </div>
-
-
-        <label>ชื่องาน</label>
-
-        <input
-            id="assignmentName"
-            type="text"
-            placeholder="เช่น แบบฝึกหัดวิศวกรรมซอฟต์แวร์"
-        >
-
-
-        <label>รายละเอียด</label>
-
-        <textarea
-            id="assignmentDetail"
-            placeholder="รายละเอียดงาน">
-        </textarea>
-
-
-        <label>กำหนดส่ง</label>
-
-        <input
-            id="assignmentDate"
-            type="datetime-local"
-        >
-
-
-        <button
-            class="primary-button full"
-            onclick="addAssignment()">
-            เพิ่มงาน
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- EXAM MODAL -->
-<!-- ================================================= -->
-
-<div id="examModal" class="modal">
-
-    <div class="modal-box">
-
-        <div class="modal-title">
-
-            <h2>เพิ่มตารางสอบ</h2>
-
-            <button onclick="closeModal('examModal')">
-                ×
-            </button>
-
-        </div>
-
-
-        <label>วิชา</label>
-
-        <input
-            id="examSubject"
-            type="text"
-            placeholder="ชื่อวิชา"
-        >
-
-
-        <label>วันที่สอบ</label>
-
-        <input
-            id="examDate"
-            type="date"
-        >
-
-
-        <label>เวลา</label>
-
-        <input
-            id="examTime"
-            type="text"
-            placeholder="09:00 - 12:00"
-        >
-
-
-        <label>ห้องสอบ</label>
-
-        <input
-            id="examRoom"
-            type="text"
-            placeholder="เช่น CE-301"
-        >
-
-
-        <button
-            class="primary-button full"
-            onclick="addExam()">
-            เพิ่มตารางสอบ
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- APPOINTMENT MODAL -->
-<!-- ================================================= -->
-
-<div id="appointmentModal" class="modal">
-
-    <div class="modal-box">
-
-        <div class="modal-title">
-
-            <h2>เพิ่มนัดหมาย</h2>
-
-            <button onclick="closeModal('appointmentModal')">
-                ×
-            </button>
-
-        </div>
-
-
-        <label>ชื่อนัดหมาย</label>
-
-        <input
-            id="appointmentName"
-            type="text"
-            placeholder="เช่น ประชุมงานกลุ่ม"
-        >
-
-
-        <label>วันที่</label>
-
-        <input
-            id="appointmentDate"
-            type="date"
-        >
-
-
-        <label>เวลา</label>
-
-        <input
-            id="appointmentTime"
-            type="text"
-            placeholder="13:00"
-        >
-
-
-        <label>สถานที่</label>
-
-        <input
-            id="appointmentRoom"
-            type="text"
-            placeholder="เช่น CE-301"
-        >
-
-
-        <button
-            class="primary-button full"
-            onclick="addAppointment()">
-            เพิ่มนัดหมาย
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- ANNOUNCEMENT MODAL -->
-<!-- ================================================= -->
-
-<div id="announcementModal" class="modal">
-
-    <div class="modal-box">
-
-        <div class="modal-title">
-
-            <h2>เพิ่มประกาศ</h2>
-
-            <button onclick="closeModal('announcementModal')">
-                ×
-            </button>
-
-        </div>
-
-
-        <label>หัวข้อประกาศ</label>
-
-        <input
-            id="announcementTitle"
-            type="text"
-            placeholder="หัวข้อประกาศ"
-        >
-
-
-        <label>รายละเอียด</label>
-
-        <textarea
-            id="announcementDetailInput"
-            placeholder="รายละเอียดประกาศ">
-        </textarea>
-
-
-        <button
-            class="primary-button full"
-            onclick="addAnnouncement()">
-            เพิ่มประกาศ
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- JS -->
-<script src="script.js"></script>
-
-</body>
-</html>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, "Noto Sans Thai", sans-serif;
+    background: #f5f7fb;
+    color: #1f2937;
+}
+
+button,
+input,
+textarea,
+select {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* ================= SIDEBAR ================= */
+
+.sidebar {
+    width: 250px;
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 20;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 25px 20px;
+}
+
+.brand-logo {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background: #2563eb;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.brand h2 {
+    font-size: 18px;
+}
+
+.brand span {
+    display: block;
+    font-size: 11px;
+    color: #9ca3af;
+    margin-top: 4px;
+}
+
+.menu-list {
+    padding: 15px 12px;
+}
+
+.menu {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 13px 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #6b7280;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.menu:hover {
+    background: #f3f6ff;
+    color: #2563eb;
+}
+
+.menu.active {
+    background: #eaf1ff;
+    color: #2563eb;
+    font-weight: bold;
+}
+
+.menu span:first-child {
+    width: 22px;
+    text-align: center;
+}
+
+.user-card {
+    margin-top: auto;
+    border-top: 1px solid #e5e7eb;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #eaf1ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-card strong {
+    display: block;
+    font-size: 13px;
+}
+
+.user-card span {
+    display: block;
+    color: #9ca3af;
+    font-size: 11px;
+    margin-top: 3px;
+}
+
+
+/* ================= MAIN ================= */
+
+.main {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    padding: 30px 35px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.topbar h1 {
+    font-size: 28px;
+}
+
+.topbar p {
+    margin-top: 6px;
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+.room-badge {
+    background: white;
+    border: 1px solid #e5e7eb;
+    padding: 10px 16px;
+    border-radius: 10px;
+    text-align: right;
+}
+
+.room-badge span {
+    display: block;
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+.room-badge strong {
+    display: block;
+    margin-top: 3px;
+    color: #2563eb;
+}
+
+
+/* ================= PAGE ================= */
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+
+/* ================= WELCOME ================= */
+
+.welcome-card {
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: white;
+    border-radius: 18px;
+    padding: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.welcome-label {
+    font-size: 13px;
+    opacity: .85;
+}
+
+.welcome-card h2 {
+    margin: 7px 0;
+    font-size: 25px;
+}
+
+.welcome-card p {
+    opacity: .85;
+    font-size: 13px;
+}
+
+.welcome-icon {
+    font-size: 55px;
+}
+
+
+/* ================= STATS ================= */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.stat-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.stat-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.stat-icon.blue {
+    background: #eaf1ff;
+}
+
+.stat-icon.orange {
+    background: #fff4e5;
+}
+
+.stat-icon.red {
+    background: #ffeded;
+}
+
+.stat-icon.green {
+    background: #e9f9ef;
+}
+
+.stat-card span {
+    display: block;
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+.stat-card strong {
+    display: block;
+    margin-top: 4px;
+    font-size: 22px;
+}
+
+
+/* ================= CARDS ================= */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 15px;
+    padding: 22px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.card-header h3 {
+    font-size: 16px;
+}
+
+.card-header p {
+    color: #9ca3af;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.text-button {
+    border: none;
+    background: transparent;
+    color: #2563eb;
+    font-size: 12px;
+}
+
+
+/* ================= SECTION ================= */
+
+.section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.section-head h2 {
+    font-size: 22px;
+}
+
+.section-head p {
+    color: #9ca3af;
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+
+/* ================= BUTTON ================= */
+
+.primary-button {
+    border: none;
+    background: #2563eb;
+    color: white;
+    padding: 11px 17px;
+    border-radius: 9px;
+    font-size: 13px;
+}
+
+.primary-button:hover {
+    background: #1d4ed8;
+}
+
+.full {
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+/* ================= LIST ================= */
+
+.dashboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.assignment-mini,
+.announcement-mini {
+    padding: 14px;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 1px solid #edf0f4;
+}
+
+.assignment-mini h4,
+.announcement-mini h4 {
+    font-size: 14px;
+}
+
+.assignment-mini p,
+.announcement-mini p {
+    color: #6b7280;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.assignment-mini small,
+.announcement-mini small {
+    display: block;
+    margin-top: 8px;
+    color: #2563eb;
+}
+
+
+/* ================= CONTENT ================= */
+
+.content-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.assignment-card,
+.announcement-full {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.assignment-card h3,
+.announcement-full h3 {
+    font-size: 16px;
+}
+
+.assignment-card p,
+.announcement-full p {
+    color: #6b7280;
+    font-size: 13px;
+    margin-top: 7px;
+}
+
+.deadline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 13px;
+    border-top: 1px solid #edf0f4;
+    font-size: 12px;
+}
+
+.delete-button {
+    border: none;
+    background: #fff0f0;
+    color: #dc2626;
+    padding: 7px 11px;
+    border-radius: 7px;
+    font-size: 12px;
+}
+
+.tag {
+    display: inline-block;
+    background: #eaf1ff;
+    color: #2563eb;
+    padding: 5px 9px;
+    border-radius: 6px;
+    font-size: 11px;
+    margin-bottom: 10px;
+}
+
+
+/* ================= TABLE ================= */
+
+.table-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #f8fafc;
+    color: #6b7280;
+    font-size: 12px;
+    text-align: left;
+    padding: 15px;
+    white-space: nowrap;
+}
+
+td {
+    padding: 15px;
+    border-top: 1px solid #edf0f4;
+    font-size: 13px;
+}
+
+tr:hover td {
+    background: #fafcff;
+}
+
+
+/* ================= APPOINTMENT ================= */
+
+.appointment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.appointment-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.appointment-date {
+    width: 65px;
+    min-width: 65px;
+    height: 65px;
+    border-radius: 12px;
+    background: #eaf1ff;
+    color: #2563eb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.appointment-date strong {
+    font-size: 21px;
+}
+
+.appointment-date span {
+    font-size: 11px;
+}
+
+.appointment-info h3 {
+    font-size: 15px;
+}
+
+.appointment-info p {
+    color: #6b7280;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+
+/* ================= MODAL ================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, .45);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.15);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.modal-title h2 {
+    font-size: 20px;
+}
+
+.modal-title button {
+    border: none;
+    background: #f3f4f6;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 20px;
+    color: #6b7280;
+}
+
+.modal-box label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 14px 0 7px;
+}
+
+.modal-box input,
+.modal-box textarea,
+.modal-box select {
+    width: 100%;
+    border: 1px solid #dfe3e8;
+    border-radius: 9px;
+    padding: 11px;
+    outline: none;
+    font-size: 13px;
+    background: white;
+}
+
+.modal-box input:focus,
+.modal-box textarea:focus,
+.modal-box select:focus {
+    border-color: #2563eb;
+}
+
+.modal-box textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+
+/* ================= EMPTY ================= */
+
+.empty {
+    background: white;
+    border: 1px dashed #d1d5db;
+    border-radius: 14px;
+    padding: 40px;
+    text-align: center;
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 210px;
+    }
+
+    .main {
+        margin-left: 210px;
+        width: calc(100% - 210px);
+        padding: 25px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 650px) {
+
+    .sidebar {
+        width: 70px;
+    }
+
+    .brand {
+        justify-content: center;
+        padding: 18px 8px;
+    }
+
+    .brand > div:last-child,
+    .menu span:last-child,
+    .user-card div:last-child {
+        display: none;
+    }
+
+    .brand-logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .menu {
+        justify-content: center;
+        padding: 13px 5px;
+    }
+
+    .user-card {
+        justify-content: center;
+        padding: 15px 5px;
+    }
+
+    .main {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+        padding: 18px;
+    }
+
+    .topbar {
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .topbar h1 {
+        font-size: 22px;
+    }
+
+    .room-badge {
+        display: none;
+    }
+
+    .welcome-card {
+        padding: 20px;
+    }
+
+    .welcome-icon {
+        font-size: 40px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 13px;
+    }
+
+    .section-head {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .section-head h2 {
+        font-size: 19px;
+    }
+
+    .primary-button {
+        white-space: nowrap;
+    }
+
+}
